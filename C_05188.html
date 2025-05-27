@@ -7,6 +7,7 @@
     body {
       background-color: #fff0f5;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
@@ -50,9 +51,67 @@
         transform: scale(1.2) rotate(-45deg);
       }
     }
+
+    .message {
+      margin-top: 60px;
+      font-size: 24px;
+      color: #c71585;
+      font-family: "Brush Script MT", "Lucida Handwriting", cursive;
+      text-align: center;
+    }
+
+    .buttons {
+      margin-top: 30px;
+    }
+
+    .buttons button {
+      background-color: #ff69b4;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .buttons button:hover {
+      background-color: #ff1493;
+    }
   </style>
 </head>
 <body>
-  <div class="heart"></div>
+  <div class="heart" id="heart"></div>
+  <div class="message" id="question">我可以当你的女朋友嘛？</div>
+  <div class="buttons" id="buttonGroup">
+    <button onclick="reply(true)">好呀</button>
+    <button onclick="reply(false)">还不到哟</button>
+  </div>
+
+  <script>
+    let stage = 1;
+
+    function reply(yes) {
+      const message = document.getElementById("question");
+      const buttons = document.getElementById("buttonGroup");
+      const heart = document.getElementById("heart");
+
+      if (stage === 1 && yes) {
+        message.innerText = "那你愿意当我的女朋友嘛？";
+        stage = 2;
+      } else {
+        if (stage === 1 && !yes) {
+          message.innerText = "好的呢，那你要继续努力追我哟！";
+        } else if (stage === 2 && yes) {
+          message.innerText = "你好呀，亲爱的女友大人，请多指教💕";
+        } else if (stage === 2 && !yes) {
+          message.innerText = "好的呢，我会继续努力追你的！";
+        }
+        buttons.style.display = "none";
+        heart.style.display = "none";
+      }
+    }
+  </script>
 </body>
 </html>
